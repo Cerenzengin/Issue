@@ -5,6 +5,8 @@
 
 import "./App.scss";
 
+import { IssuesWidgetProvider } from "./IssuesWidget"; 
+
 import type { ScreenViewport } from "@itwin/core-frontend";
 import { FitViewTool, IModelApp, StandardViewId } from "@itwin/core-frontend";
 import { FillCentered } from "@itwin/core-react";
@@ -45,6 +47,17 @@ const App: React.FC = () => {
     process.env.IMJS_AUTH_CLIENT_CHANGESET_ID
   );
 
+   // Add state for API keys
+   const [bingMapsKey, setBingMapsKey] = useState(
+     process.env.IMJS_BING_MAPS_KEY || "ApVESqqc5C48K9smPp5LgpMUCNnfYiQJndhuCPbqUifN5x9XaD2yXCWy4FqQ6KSR"
+   );
+   const [mapboxKey, setMapboxKey] = useState(
+     process.env.IMJS_MAPBOX_KEY || "pk.eyJ1IjoiY2VyZW56ZW5naW4iLCJhIjoiY2xwaDExeDd3MDJvbTJrdDN6bWhxeHI5YSJ9.mFKaszJah-f5AAfp9scLxg"
+   );
+   const [cesiumAssetId, setCesiumAssetId] = useState(
+     process.env.IMJS_CESIUM_ASSET_ID || "eyJqdGkiOiI1ZmE5OTExZi1kYWJhLTRlMzQtYWE2Yi0yN2JhYmZjMTM5NzkiLCJpZCI6MTgxMDM1LCJpYXQiOjE3MDEwOTY4NDF9"
+   );
+    
   const accessToken = useAccessToken();
 
   const authClient = Auth.getClient();
@@ -182,7 +195,16 @@ const App: React.FC = () => {
             },
           }),
           new MeasureToolsUiItemsProvider(),
+          //Custom Providers:
+          new IssuesWidgetProvider(),
         ]}
+        // Bing and Mapbox keys:
+        mapLayerOptions = { {BingMaps: { key: "key", value: bingMapsKey},
+                            MapboxImagery: { key: "access_token", value: mapboxKey}} }
+
+        //Cesium Terrain
+        //tileAdmin = { {cesiumIonKey: CesiumKey  }}         
+
       />
     </div>
   );

@@ -44,9 +44,9 @@ import {
   // the .env file of the project. Please visit developer.bentley.com to
   // register Application and get Authorization Client details
   export const authClient = new SandboxAuthorizationClient({
-    scope: process.env.IMJS_AUTH_CLIENT_SCOPES || "",
-    clientId: process.env.IMJS_AUTH_CLIENT_CLIENT_ID || "",
-    redirectUri: process.env.IMJS_AUTH_CLIENT_REDIRECT_URI || "",
+    scope: process.env.IMJS_AUTH_CLIENT_SCOPES || "imodelaccess:read imodels:read realitydata:read",
+    clientId: process.env.IMJS_AUTH_CLIENT_CLIENT_ID || "spa-qH2j4LmrLbGTVk1JjcKz7dZgR",
+    redirectUri: process.env.IMJS_AUTH_CLIENT_REDIRECT_URI || "http://localhost:3000/signin-callback",
     postSignoutRedirectUri: process.env.IMJS_AUTH_CLIENT_LOGOUT_URI,
     responseType: "code",
     authority: process.env.IMJS_AUTH_AUTHORITY,
